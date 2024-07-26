@@ -43,7 +43,12 @@ class TipCalculator extends StatelessWidget {
     );
     // Create button
     ElevatedButton calculateButton = ElevatedButton(
-        child: Text("Calculate"),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32.0)),
+          minimumSize: const Size(300, 60), //////// HERE
+        ),
+        child: Text("Calculate", style: TextStyle(fontSize: 25, color: Colors.green),),
         onPressed: () {
           // Calculate tip and total
           double calculatedTip = billAmount * tipPercentage / 100.0;
