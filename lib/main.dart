@@ -12,6 +12,7 @@ class TipCalculator extends StatelessWidget {
   Widget build(BuildContext context) {
     // Create first input field
     TextField billAmountField = TextField(
+
       keyboardType: TextInputType.number,
       onChanged: (String value) {
         try {
@@ -20,12 +21,12 @@ class TipCalculator extends StatelessWidget {
           billAmount = 0.0;
         }
       },
-      decoration: InputDecoration(labelText: "Bill amount(\$)"),
+      decoration: const InputDecoration(labelText: "Bill amount(\$)"),
     );
 
     // Create another input field
     TextField tipPercentageField = TextField(
-        decoration: InputDecoration(labelText: "Tip %", hintText: "15"),
+        decoration: const InputDecoration(labelText: "Tip %", hintText: "15"),
         keyboardType: TextInputType.number,
         onChanged: (String value) {
           try {
@@ -37,7 +38,7 @@ class TipCalculator extends StatelessWidget {
 
     Container cX = Container(margin: const EdgeInsets.only(top: 25, bottom: 20),
       height: 30,
-    child: Text("Tap Below To Finish",
+    child: const Text("Tap Below To Finish",
       style: TextStyle(color: Colors.grey,
           fontSize: 25),),
     );
@@ -48,7 +49,7 @@ class TipCalculator extends StatelessWidget {
               borderRadius: BorderRadius.circular(32.0)),
           minimumSize: const Size(300, 60), //////// HERE
         ),
-        child: Text("Calculate", style: TextStyle(fontSize: 25, color: Colors.green),),
+        child: const Text("Calculate", style: TextStyle(fontSize: 25, color: Colors.green),),
         onPressed: () {
           // Calculate tip and total
           double calculatedTip = billAmount * tipPercentage / 100.0;
