@@ -15,8 +15,11 @@ class TipCalculator extends StatelessWidget {
     void myPop(){
       // Generate dialog
       AlertDialog dialog =  AlertDialog(
-          content: const Text("Hye There! \n"
-              "Your Bill Will Be Ready In a moment..")
+          content: const Text("Hye There, Hyper! \n"
+              "Your Bill Will Be Ready In A Moment..",
+            style: TextStyle(
+              fontWeight: FontWeight.w600, // light// italic
+              fontSize: 30.0,))
           ,actions: [
       TextButton(child: Text('Close'),
         onPressed: () { Navigator.pop(context); // Close the dialog
@@ -56,7 +59,7 @@ class TipCalculator extends StatelessWidget {
     Container cX = Container(margin: const EdgeInsets.only(top: 25, bottom: 20),
       height: 30,
     child: const Text("Tap Below To Finish",
-      style: TextStyle(color: Colors.grey,
+      style: TextStyle(color: Colors.white,
           fontSize: 25),),
     );
     // Create button
@@ -73,25 +76,80 @@ class TipCalculator extends StatelessWidget {
           double total = billAmount + calculatedTip;
 
           myPop();
-          Future.delayed(Duration(seconds: 5), () {
+          Future.delayed(Duration(seconds: 10), () {
             print('Delayed code executed');
             // Generate dialog
             AlertDialog dialog = AlertDialog(
-                content: Text("Tip: \$$calculatedTip \n"
-                    "Total: \$$total"));
+                content: Text("Hye Again, Here You Go..\n"
+                    "Tip: \$$calculatedTip \n"
+                    "The Total Bal: \$$total",
+                  style: TextStyle(
+                  fontWeight: FontWeight.w300, // light
+                  fontStyle: FontStyle.italic, // italic
+                    fontSize: 50.0,
+                ),));
 
             // Show dialog
             showDialog(context: context, builder: (BuildContext context) => dialog);
           });
+          Future.delayed(Duration(seconds: 15), (){
+            final snackBar = SnackBar(
+              content: const Text('Yay! That was fantastic!'),
+              action: SnackBarAction(
+                label: 'Dismiss',
+                onPressed: () {
+                  // Some code to undo the change.
+                  print("Dismiss the snack");
+                },
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },);
 
         });
+    Container cY = Container(margin: const EdgeInsets.only(top: 75, bottom: 20),
+      height: 50,
+    );
+    FloatingActionButton fActionButton = FloatingActionButton(
+      // When the user presses the button, show an alert dialog containing
+      // the text that the user has entered into the text field.
+      onPressed: () {
+        double calculatedTip = billAmount * tipPercentage / 100.0;
+        double total = billAmount + calculatedTip;
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              // Retrieve the text the that user has entered by using the
+              // TextEditingController.
+              content: Text("Tip: \$$calculatedTip \n"
+                  "Total: \$$total"),
+            );
+          },
+        );
+      },
+      tooltip: 'Show me the value!',
+      child: const Icon(Icons.text_fields),
+    );
+
+    // final snackBar = SnackBar(
+    //   content: const Text('Yay! That was fantastic!'),
+    //   action: SnackBarAction(
+    //     label: 'Dismiss',
+    //     onPressed: () {
+    //       // Some code to undo the change.
+    //       print("Dismiss the snack");
+    //     },
+    //   ),
+    // );
 
     Container container = Container(
+      color: Colors.redAccent,
         padding: const EdgeInsets.all(16.0),
         child: Column(
-            children: [billAmountField, tipPercentageField, cX, calculateButton]));
+            children: [billAmountField, tipPercentageField, cX, calculateButton,cY, fActionButton]));
 
-    AppBar appBar = AppBar(title: Text("Tip Calculator"));
+    AppBar appBar = AppBar(title: Text("The GO-TIP"));
 
     Scaffold scaffold = Scaffold(appBar: appBar, body: container);
     return scaffold;
