@@ -8,8 +8,25 @@ class TipCalculator extends StatelessWidget {
   double billAmount = 0.0;
   double tipPercentage = 0.0;
 
+
   @override
   Widget build(BuildContext context) {
+
+    void myPop(){
+      // Generate dialog
+      AlertDialog dialog =  AlertDialog(
+          content: const Text("Hye There! \n"
+              "Your Bill Will Be Ready In a moment..")
+          ,actions: [
+      TextButton(child: Text('Close'),
+        onPressed: () { Navigator.pop(context); // Close the dialog
+      },),],);
+
+      // Show dialog
+      showDialog(context: context, builder: (BuildContext context) => dialog);
+    }
+
+
     // Create first input field
     TextField billAmountField = TextField(
 
@@ -55,13 +72,18 @@ class TipCalculator extends StatelessWidget {
           double calculatedTip = billAmount * tipPercentage / 100.0;
           double total = billAmount + calculatedTip;
 
-          // Generate dialog
-          AlertDialog dialog = AlertDialog(
-              content: Text("Tip: \$$calculatedTip \n"
-                  "Total: \$$total"));
+          myPop();
+          Future.delayed(Duration(seconds: 5), () {
+            print('Delayed code executed');
+            // Generate dialog
+            AlertDialog dialog = AlertDialog(
+                content: Text("Tip: \$$calculatedTip \n"
+                    "Total: \$$total"));
 
-          // Show dialog
-          showDialog(context: context, builder: (BuildContext context) => dialog);
+            // Show dialog
+            showDialog(context: context, builder: (BuildContext context) => dialog);
+          });
+
         });
 
     Container container = Container(
