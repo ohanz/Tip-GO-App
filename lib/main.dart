@@ -7,6 +7,7 @@ void main() {
 class TipCalculator extends StatelessWidget {
   double billAmount = 0.0;
   double tipPercentage = 0.0;
+  double tipAmount = 0.0;
 
 
   @override
@@ -94,10 +95,34 @@ class TipCalculator extends StatelessWidget {
         onChanged: (String value) {
           try {
             tipPercentage = double.parse(value);
+             // tipAmount = billAmount * tipPercentage / 100.0;
           } catch (exception) {
             tipPercentage = 0.0;
+            // tipAmount = 0.0;
           }
         });
+
+    // Create another input field
+    // Container tipAmountField = TextField(
+    //     decoration: const InputDecoration(labelText: "Tip In Amount\$", hintText: "Any"),
+    //     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white70, fontSize: 25),
+    //     keyboardType: TextInputType.number,
+    //     text,
+    //     onChanged: (String value) {
+    //       try {
+    //         double calculatedTip = billAmount * tipPercentage / 100.0;
+    //         tipPercentage = double.parse(value);
+    //       } catch (exception) {
+    //         tipPercentage = 0.0;
+    //       }
+    //     });
+
+
+    // Container tipAmountField  = Container(margin: const EdgeInsets.only(top: 5, bottom: 5),
+    //   height: 30,
+    //   child: Text("$tipAmount",
+    //     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white70, fontSize: 25),),
+    // );
 
     Container cX = Container(margin: const EdgeInsets.only(top: 25, bottom: 20),
       height: 30,
@@ -131,6 +156,7 @@ class TipCalculator extends StatelessWidget {
             // Calculate tip and total
             double calculatedTip = billAmount * tipPercentage / 100.0;
             double total = billAmount + calculatedTip;
+
 
             myPop();
             Future.delayed(Duration(seconds: 7), () {
