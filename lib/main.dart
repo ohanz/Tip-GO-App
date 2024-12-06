@@ -16,8 +16,8 @@ class TipCalculator extends StatelessWidget {
       // Generate dialog
       String currentVal = (val == "Bill") ? "Bill": "Tip";
       AlertDialog dialog =  AlertDialog(
-        content: const Text("Hye! Empty \$currentVal. \n"
-            "Add Your \$currentVal to Proceed.",
+        content: Text("Hye! Empty $currentVal. \n"
+            "Add Your $currentVal to Proceed.",
             style: TextStyle(
               fontWeight: FontWeight.w600, // light// italic
               fontSize: 30.0,))
@@ -55,7 +55,7 @@ class TipCalculator extends StatelessWidget {
               fontWeight: FontWeight.w600, // light// italic
               fontSize: 30.0,))
           ,actions: [
-      TextButton(child: Text('Close'),
+      TextButton(child: const Text('Close'),
         onPressed: () { Navigator.pop(context); // Close the dialog
       },),],);
 
@@ -64,17 +64,18 @@ class TipCalculator extends StatelessWidget {
     }
 
     // Hierarchy of Widgets
-    Container h1 = Container(margin: const EdgeInsets.only(top: 25, bottom: 20),
-      height: 35,
+    Container h1 = Container(margin: const EdgeInsets.only(top: 15, bottom: 10),
+      height: 45,
       child: const Text("Fill your Input to Calculate your Final Bill",
-        style: TextStyle(color: Colors.green,
-            fontSize: 30),),
+        style: TextStyle(color: Colors.lightGreenAccent,
+            fontSize: 35),),
     );
 
     // Create first input field
     TextField billAmountField = TextField(
 
       keyboardType: TextInputType.number,
+      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 35),
       onChanged: (String value) {
         try {
           billAmount = double.parse(value);
@@ -82,12 +83,13 @@ class TipCalculator extends StatelessWidget {
           billAmount = 0.0;
         }
       },
-      decoration: const InputDecoration(labelText: "Bill amount(\$)"),
+      decoration: const InputDecoration(labelText: "Your Bill Amount(\$)"),
     );
 
     // Create another input field
     TextField tipPercentageField = TextField(
-        decoration: const InputDecoration(labelText: "Tip %", hintText: "15"),
+        decoration: const InputDecoration(labelText: "Add Tip In Percentage%", hintText: "15"),
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white70, fontSize: 25),
         keyboardType: TextInputType.number,
         onChanged: (String value) {
           try {
@@ -112,17 +114,17 @@ class TipCalculator extends StatelessWidget {
         ),
         child: const Text("Calculate", style: TextStyle(fontSize: 25, color: Colors.green),),
         onPressed: () {
-          if( tipPercentage == 0){
+          if(billAmount == 0 && tipPercentage == 0){
             // pop Add value
-            myPopBillTip("tip");
+            myPopVoid();
           }
           else if(billAmount == 0){
             // pop Add value
             myPopBillTip("Bill");
           }
-          else if(billAmount == 0 || tipPercentage == 0){
+          else if(tipPercentage == 0){
             // pop Add value
-            myPopVoid();
+            myPopBillTip("Tip");
           }
           else{
             // run Ops
@@ -138,7 +140,7 @@ class TipCalculator extends StatelessWidget {
                   content: Text("Hye Again, Here You Go..\n"
                       "Tip: \$$calculatedTip \n"
                       "The Total Bal: \$$total",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w300, // light
                       fontStyle: FontStyle.italic, // italic
                       fontSize: 50.0,
@@ -205,11 +207,11 @@ class TipCalculator extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child:
             SingleChildScrollView(child: Column(
-                children: [h1, billAmountField, tipPercentageField, cX, calculateButton,cY, fActionButton])
+                children: [h1, billAmountField, tipPercentageField, cX, calculateButton,cY, fActionButton, cY])
             ));
 
 
-    AppBar appBar = AppBar(title: Text("The GO-TIP"));
+    AppBar appBar = AppBar(title: const Text("The GO-TIP"));
 
     Scaffold scaffold = Scaffold(appBar: appBar, body: container);
     return scaffold;
